@@ -119,12 +119,13 @@ void solve(){
     int cnt = 0;
     point temp;
     for(int i = 0; i < n; i++)
-        for(int j = i+1; j < n; j++)
+        for(int j = i+1; j < n; j++){
+            // if(intersectSegment(segs[i].F, segs[i].S, segs[j].F, segs[j].S, temp))   cnt++;
             if (checkIntersect(segs[i].F, segs[i].S, segs[j].F, segs[j].S)){
                 //trace2(i, j);
                 cnt++;
             }
-
+        }
     cout << n+2*cnt << endl;
 }
 
