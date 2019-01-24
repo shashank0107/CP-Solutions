@@ -72,6 +72,36 @@ bool intersectSegment(point a, point b, point c, point d, point& intersect){
     return true;
 }
 
+// Where is c relative to segment ab
+// think of the angle abc
+// ccw = +1  => angle > 0 or collinear after b
+// ccw = -1  => angle < 0 or collinear before a
+// ccw = 0   => undefined : collinear in range [ab]
+
+int ccw(point a, point b, point c){
+    point v1 = b-a, v2 = c-a;
+    double t = cp(v1, v2);
+
+    if (t > +EPS)   return +1;
+    if (t < +EPS)   return -1;
+    if ( v1.X*v2.X < -EPS || v1.Y*v2.Y < -EPS )
+        return -1;
+    if ( norm(v1) < norm(v2)-EPS )  return +1;
+    return 0; 
+}
+
+
+bool checkIntersect(point a, point b, point c, point d){
+    // special case handling if segment is a point
+    bool x = (a == b), y = (c == d);
+    if (x && y) return (a == c);
+    if (x)  return ccw(c, d, a) == 0;
+    if (y)  return ccw(a, b, c) == 0;
+
+    return  ccw(a, b, c) * ccw(a, b, d) <= 0 &&
+            ccw(c, d, a) * ccw(c, d, b) <= 0; 
+}
+
 /* Geometry Template Ends */
 
 void solve(){
@@ -90,7 +120,7 @@ void solve(){
     point temp;
     for(int i = 0; i < n; i++)
         for(int j = i+1; j < n; j++)
-            if (intersectSegment(segs[i].F, segs[i].S, segs[j].F, segs[j].S, temp)){
+            if (checkIntersect(segs[i].F, segs[i].S, segs[j].F, segs[j].S)){
                 //trace2(i, j);
                 cnt++;
             }
