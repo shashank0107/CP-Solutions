@@ -40,7 +40,7 @@ const int yinc[] = {1, -1, 0, 0};
 /*** Template Ends ***/
 string text, word;
 
-vector<int> getLPS(string str) {
+vector<int> getLPS(string pat) {
     int n = str.size();
     vector<int> F(n, 0);
 
