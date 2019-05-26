@@ -59,7 +59,7 @@ vector<int> getLPS(string str) {
 vector<int> KMP(string str, string pat) {
     int n = str.size();
     int m = pat.size();
-    vector<int> F = getLPS(str);
+    vector<int> F = getLPS(pat);
     vector<int> occurence;
 
     for (int i = 0, k = 0; i < n; i++) {
