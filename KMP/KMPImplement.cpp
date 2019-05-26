@@ -41,17 +41,17 @@ const int yinc[] = {1, -1, 0, 0};
 string text, word;
 
 vector<int> getLPS(string pat) {
-    int n = str.size();
+    int n = pat.size();
     vector<int> F(n, 0);
 
     for (int i = 1, k = 0; i < n; i++) {
 
-        while(k > 0 && str[i] != str[k])
+        while(k > 0 && pat[i] != pat[k])
             k = F[k-1];
 
-        if (str[i] == str[k])
-            F[i] = ++k;
-        else F[i] = k;
+        if (pat[i] == pat[k]) k++;
+
+        F[i] = k;
     }
     return F;
 }
